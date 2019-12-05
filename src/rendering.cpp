@@ -109,6 +109,8 @@ static const char* vertex_shader_source = R"(
 
 static const char* fragment_shader_source = R"(
 	#version 460
+	#extension GL_ARB_conservative_depth: require // produces shader compilation error: Required extension is not found. Extension "GL_ARB_conservative_depth" is not supported
+	//#extension GL_AMD_conservative_depth: require // no errors
 
 	in vec3 color;
 
@@ -204,6 +206,22 @@ int main(void)
 	glClearDepth(1.0f);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glDisable(GL_CULL_FACE);
+
+	if (GLAD_GL_ARB_conservative_depth) {
+		std::cout << "GL_ARB_conservative_depth is available via GLAD." << std::endl;
+	}
+	else {
+		std::cout << "GL_ARB_conservative_depth not available. Abort." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	if(glfwExtensionSupported("GL_ARB_debug_output")) {
+		std::cout << "GL_ARB_conservative_depth is available via GLFW." << std::endl;
+	}
+	else {
+		std::cout << "GL_ARB_conservative_depth not available. Abort." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
 	std::cout << "Building shaders.\n" << std::endl;
 
