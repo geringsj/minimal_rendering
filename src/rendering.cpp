@@ -215,7 +215,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	if(glfwExtensionSupported("GL_ARB_debug_output")) {
+	if(glfwExtensionSupported("GL_ARB_conservative_depth")) {
 		std::cout << "GL_ARB_conservative_depth is available via GLFW." << std::endl;
 	}
 	else {
